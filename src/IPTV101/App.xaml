@@ -1,0 +1,9 @@
+<Application x:Class="IPTV101.App"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             ThemeMode="System"
+             ShutdownMode="OnMainWindowClose">
+    <!-- Los estilos y colores de la interfaz viven en los 8 diccionarios de Skins/*.xaml, no aquí:
+         SkinManager inserta el skin elegido en Application.Resources.MergedDictionaries al arrancar
+         (App.xaml.cs, OnStartup) y cada vez que la persona cambia de apariencia desde el menú. -->
+</Application>

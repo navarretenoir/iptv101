@@ -1,0 +1,10 @@
+libmpv (motor de video)
+=======================
+Archivo:  libmpv-2.dll
+Versión:  mpv 20261111 (git bcde6b93cc), API cliente 2.6
+Origen:   https://github.com/shinchiro/mpv-winbuild-cmake/releases/tag/20261111
+          (compilaciones enlazadas desde https://mpv.io/installation/)
+Paquete:  mpv-dev-x86_64-20261111-git-bcde6b93cc.7z   (x86_64 base, SIN AVX2)
+SHA-256 del .7z:   273c079b11ea5575822f972756f4c9a71149a5c10130353abeb8586738938452
+                   (verificado contra el 'digest' publicado por GitHub en la release)
+Licencia: GPLv2+ (build GPL de mpv). Código fuente disponible en el repositorio de origen.

@@ -1,0 +1,75 @@
+<Window x:Class="IPTV101.AboutWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:shell="clr-namespace:System.Windows.Shell;assembly=PresentationFramework"
+        Title="Acerca de IPTV 101" Width="520" SizeToContent="Height" ResizeMode="NoResize"
+        WindowStartupLocation="CenterOwner" ShowInTaskbar="False"
+        FontFamily="{DynamicResource UiFont}" UseLayoutRounding="True"
+        Icon="pack://application:,,,/Assets/IPTV101.ico"
+        WindowStyle="None" AllowsTransparency="False"
+        Background="{DynamicResource WindowBackgroundBrush}"
+        BorderBrush="{DynamicResource WindowBorderBrush}" BorderThickness="1">
+
+    <shell:WindowChrome.WindowChrome>
+        <shell:WindowChrome CaptionHeight="30" GlassFrameThickness="0" ResizeBorderThickness="0" UseAeroCaptionButtons="False" />
+    </shell:WindowChrome.WindowChrome>
+
+    <Window.Resources>
+        <Style x:Key="KeyCap" TargetType="Border">
+            <Setter Property="CornerRadius" Value="4" />
+            <Setter Property="Padding" Value="6,1" />
+            <Setter Property="Margin" Value="0,2,10,2" />
+            <Setter Property="BorderThickness" Value="1" />
+            <Setter Property="BorderBrush" Value="{DynamicResource AppStrokeDefaultBrush}" />
+            <Setter Property="Background" Value="{DynamicResource AppSubtleSecondaryBrush}" />
+            <Setter Property="HorizontalAlignment" Value="Left" />
+        </Style>
+        <Style TargetType="TextBlock" x:Key="Row">
+            <Setter Property="FontSize" Value="13" />
+            <Setter Property="VerticalAlignment" Value="Center" />
+            <Setter Property="Foreground" Value="{DynamicResource AppTextPrimaryBrush}" />
+        </Style>
+    </Window.Resources>
+
+    <StackPanel>
+        <Grid Height="30" Background="{DynamicResource TitleBarBackgroundBrush}">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*" />
+                <ColumnDefinition Width="Auto" />
+            </Grid.ColumnDefinitions>
+            <TextBlock Text="Acerca de IPTV 101" Margin="10,0,0,0" VerticalAlignment="Center" FontSize="12"
+                       Foreground="{DynamicResource TitleBarForegroundBrush}" IsHitTestVisible="False" />
+            <Button Grid.Column="1" Style="{DynamicResource CaptionCloseButton}" Content="&#xE8BB;" ToolTip="Cerrar"
+                    shell:WindowChrome.IsHitTestVisibleInChrome="True" Click="Close_Click" />
+        </Grid>
+
+        <StackPanel Margin="28,22,28,14">
+            <StackPanel Orientation="Horizontal">
+                <Image Source="pack://application:,,,/Assets/IPTV101.ico" Width="56" Height="56" RenderOptions.BitmapScalingMode="HighQuality" />
+                <StackPanel Margin="16,0,0,0" VerticalAlignment="Center">
+                    <TextBlock Text="IPTV 101" FontFamily="{DynamicResource DisplayFont}" FontSize="24" FontWeight="SemiBold"
+                               Foreground="{DynamicResource AppTextPrimaryBrush}" />
+                    <TextBlock x:Name="VersionText" Style="{DynamicResource Caption}" />
+                </StackPanel>
+            </StackPanel>
+
+            <TextBlock Margin="0,16,0,6" FontSize="14" FontWeight="SemiBold" Text="Control remoto y teclado"
+                       Foreground="{DynamicResource AppTextPrimaryBrush}" />
+            <Grid x:Name="Keys">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="Auto" />
+                    <ColumnDefinition Width="*" />
+                </Grid.ColumnDefinitions>
+            </Grid>
+
+            <TextBlock Margin="0,14,0,0" Style="{DynamicResource Caption}" TextWrapping="Wrap"
+                       Text="IPTV 101 no trae canales precargados: cada lista (.m3u/.m3u8 local o por URL) la agregas tú desde «Importar listas». La calidad y disponibilidad de cada canal depende de su fuente." />
+
+            <Button x:Name="CloseButton" Content="Cerrar" Style="{DynamicResource AppButton}" HorizontalAlignment="Right" MinWidth="96" Margin="0,16,0,0"
+                    IsDefault="True" IsCancel="True" Click="Close_Click" />
+
+            <TextBlock x:Name="Credit" Margin="0,10,0,0" HorizontalAlignment="Center" FontSize="11.5" Opacity="0.65"
+                       Foreground="{DynamicResource AppTextSecondaryBrush}" Text="IPTV 101 · creado por Javiera Navarrete" />
+        </StackPanel>
+    </StackPanel>
+</Window>

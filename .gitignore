@@ -1,0 +1,16 @@
+# Dependencias binarias pesadas (se descargan desde las Releases)
+runtime/libmpv-2.dll
+
+# Artefactos de compilación .NET / Visual Studio / Rider
+bin/
+obj/
+publicacion/
+*.user
+
+# Paquetes de Visual Studio
+.vs/
+
+# Compilaciones de IconGen fuera de bin/obj (por si se ejecuta en otra carpeta)
+tools/IconGen/bin/
+tools/IconGen/obj/
+

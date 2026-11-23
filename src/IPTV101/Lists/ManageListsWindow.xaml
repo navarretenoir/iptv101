@@ -1,0 +1,134 @@
+<Window x:Class="IPTV101.Lists.ManageListsWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:shell="clr-namespace:System.Windows.Shell;assembly=PresentationFramework"
+        Title="Importar y gestionar listas" Width="560" Height="620" MinWidth="460" MinHeight="420"
+        WindowStartupLocation="CenterOwner" ShowInTaskbar="False"
+        FontFamily="{DynamicResource UiFont}" UseLayoutRounding="True"
+        Icon="pack://application:,,,/Assets/IPTV101.ico"
+        WindowStyle="None" AllowsTransparency="False" ResizeMode="CanResize"
+        Background="{DynamicResource WindowBackgroundBrush}"
+        BorderBrush="{DynamicResource WindowBorderBrush}" BorderThickness="1">
+
+    <shell:WindowChrome.WindowChrome>
+        <shell:WindowChrome CaptionHeight="30" GlassFrameThickness="0" ResizeBorderThickness="6" UseAeroCaptionButtons="False" />
+    </shell:WindowChrome.WindowChrome>
+
+    <Window.Resources>
+        <Style x:Key="SectionTitle" TargetType="TextBlock">
+            <Setter Property="FontFamily" Value="{DynamicResource DisplayFont}" />
+            <Setter Property="FontSize" Value="15" />
+            <Setter Property="FontWeight" Value="SemiBold" />
+            <Setter Property="Foreground" Value="{DynamicResource AppTextPrimaryBrush}" />
+            <Setter Property="Margin" Value="0,0,0,8" />
+        </Style>
+    </Window.Resources>
+
+    <DockPanel>
+        <!-- Barra de título propia (coherente con el resto de IPTV 101 en cualquier skin). -->
+        <Grid DockPanel.Dock="Top" Height="30" Background="{DynamicResource TitleBarBackgroundBrush}">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*" />
+                <ColumnDefinition Width="Auto" />
+            </Grid.ColumnDefinitions>
+            <TextBlock Text="Importar y gestionar listas" Margin="10,0,0,0" VerticalAlignment="Center" FontSize="12"
+                       Foreground="{DynamicResource TitleBarForegroundBrush}" IsHitTestVisible="False" />
+            <Button Grid.Column="1" Style="{DynamicResource CaptionCloseButton}" Content="&#xE8BB;" ToolTip="Cerrar"
+                    shell:WindowChrome.IsHitTestVisibleInChrome="True" Click="Close_Click" />
+        </Grid>
+
+        <Grid DockPanel.Dock="Bottom" Margin="20,8,20,16">
+            <Button Content="Cerrar" Style="{DynamicResource AppButton}" HorizontalAlignment="Right" MinWidth="100" Click="Close_Click" />
+        </Grid>
+
+        <Grid Margin="20,16,20,0">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto" />
+                <RowDefinition Height="Auto" />
+                <RowDefinition Height="*" />
+            </Grid.RowDefinitions>
+
+            <!-- Agregar lista -->
+            <StackPanel Grid.Row="0">
+                <TextBlock Style="{DynamicResource SectionTitle}" Text="Agregar una lista" />
+                <TextBlock Style="{DynamicResource Caption}" TextWrapping="Wrap" Margin="0,0,0,10"
+                           Text="IPTV 101 no incluye canales: importa tu propio archivo .m3u/.m3u8 o pega la URL de una lista pública o privada." />
+
+                <Grid Margin="0,0,0,8">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="*" />
+                        <ColumnDefinition Width="Auto" />
+                    </Grid.ColumnDefinitions>
+                    <TextBox x:Name="UrlBox" Padding="8,6" FontSize="13" VerticalContentAlignment="Center"
+                             AutomationProperties.Name="URL de la lista" ToolTip="https://ejemplo.com/lista.m3u8" />
+                    <Button Grid.Column="1" Content="Importar desde URL" Style="{DynamicResource AppButton}" FontSize="12.5" Margin="8,0,0,0" Click="ImportUrl_Click" />
+                </Grid>
+
+                <Button Content="Elegir archivo .m3u / .m3u8 local…" Style="{DynamicResource AppButton}" HorizontalAlignment="Left" Click="ImportFile_Click" />
+
+                <Border x:Name="StatusBox" Margin="0,10,0,0" Padding="10,8" CornerRadius="6" Visibility="Collapsed"
+                        Background="{DynamicResource AppSubtleSecondaryBrush}">
+                    <TextBlock x:Name="StatusText" TextWrapping="Wrap" FontSize="12.5"
+                               Foreground="{DynamicResource AppTextPrimaryBrush}" />
+                </Border>
+            </StackPanel>
+
+            <Separator Grid.Row="1" Margin="0,16,0,14" />
+
+            <!-- Listas importadas -->
+            <Grid Grid.Row="2">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="Auto" />
+                    <RowDefinition Height="*" />
+                </Grid.RowDefinitions>
+                <TextBlock Grid.Row="0" Style="{DynamicResource SectionTitle}" Text="Tus listas" />
+
+                <TextBlock x:Name="EmptyHint" Grid.Row="1" Style="{DynamicResource Caption}" TextWrapping="Wrap" HorizontalAlignment="Center"
+                           VerticalAlignment="Center" MaxWidth="320" TextAlignment="Center" Visibility="Collapsed"
+                           Text="Aún no has importado ninguna lista. Usa las opciones de arriba para agregar la primera." />
+
+                <ListBox x:Name="SourcesList" Grid.Row="1" BorderThickness="0" Background="Transparent"
+                         ScrollViewer.HorizontalScrollBarVisibility="Disabled">
+                    <ListBox.ItemContainerStyle>
+                        <Style TargetType="ListBoxItem">
+                            <Setter Property="Padding" Value="0" />
+                            <Setter Property="Margin" Value="0,0,0,8" />
+                            <Setter Property="HorizontalContentAlignment" Value="Stretch" />
+                            <Setter Property="Focusable" Value="False" />
+                            <Setter Property="Template">
+                                <Setter.Value>
+                                    <ControlTemplate TargetType="ListBoxItem">
+                                        <ContentPresenter />
+                                    </ControlTemplate>
+                                </Setter.Value>
+                            </Setter>
+                        </Style>
+                    </ListBox.ItemContainerStyle>
+                    <ListBox.ItemTemplate>
+                        <DataTemplate>
+                            <Border Padding="12,10" CornerRadius="8" Background="{DynamicResource AppSubtleSecondaryBrush}"
+                                    BorderBrush="{DynamicResource AppStrokeDefaultBrush}" BorderThickness="1">
+                                <Grid>
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition Width="*" />
+                                        <ColumnDefinition Width="Auto" />
+                                    </Grid.ColumnDefinitions>
+                                    <StackPanel Grid.Column="0" VerticalAlignment="Center">
+                                        <TextBlock Text="{Binding Name}" FontSize="14" FontWeight="SemiBold"
+                                                   Foreground="{DynamicResource AppTextPrimaryBrush}" TextTrimming="CharacterEllipsis" />
+                                        <TextBlock Text="{Binding Subtitle}" Style="{DynamicResource Caption}" Margin="0,2,0,0" />
+                                    </StackPanel>
+                                    <StackPanel Grid.Column="1" Orientation="Horizontal" VerticalAlignment="Center">
+                                        <Button Content="Actualizar" Style="{DynamicResource AppButton}" FontSize="12.5" Padding="10,5" Click="RefreshOne_Click"
+                                                Tag="{Binding Id}" IsEnabled="{Binding CanUpdate}" />
+                                        <Button Content="Quitar" Style="{DynamicResource AppButton}" FontSize="12.5" Padding="10,5" Margin="6,0,0,0" Click="Remove_Click" Tag="{Binding Id}" />
+                                    </StackPanel>
+                                </Grid>
+                            </Border>
+                        </DataTemplate>
+                    </ListBox.ItemTemplate>
+                </ListBox>
+            </Grid>
+        </Grid>
+    </DockPanel>
+</Window>
